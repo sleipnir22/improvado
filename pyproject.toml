@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "improvado"
+version = "0.1.0"
+description = ""
+authors = ["Denis Bolovin"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^1.10.5"
+asyncio = "^3.4.3"
+aiohttp = "^3.8.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
