@@ -1,23 +1,27 @@
 from abc import ABC, abstractmethod
 import typing as t
 
-from aiohttp import ClientSession
+import requests
 
 
 class Client(ABC):
     API_URL: str = ""
 
     def __init__(self):
-        self.session = ClientSession()
+        self.session = requests.Session()
 
-    async def __aenter__(self):
+    @abstractmethod
+    def get_user_friends(self, request):
+        ...
+
+    def __enter__(self):
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.close()
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
 
-    async def close(self):
-        await self.session.close()
+    def close(self):
+        self.session.close()
 
 
 T_Client = t.TypeVar("T_Client", bound=Client)

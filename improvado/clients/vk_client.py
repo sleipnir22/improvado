@@ -1,32 +1,23 @@
 from improvado.clients.base import Client
-from improvado.dataschemas.user import User
+from improvado.dataschemas.request import FriendsGetRequest
+from improvado.dataschemas.response import FriendsGetResponse
 
 
 class VkClient(Client):
-    API_URL: str = "https://api.vk.com"
+    API_URL: str = "https://api.vk.com/method"
 
     def __init__(self, token: str):
         super().__init__()
         self.token = token
-        self.header = {
+        self.headers = {
             "Authorization": f"Bearer {token}"
         }
 
-    async def get_user_friends(
-            self,
-            user_id: str,
-            order: str,
-            list_id: str,
-            count: int,
-            offset: int,
-            fields: str) -> list[User]:
+    def get_user_friends(self, request: FriendsGetRequest) -> FriendsGetResponse:
         url = f"{self.API_URL}/friends.get"
-        params = {
-            "user_id": user_id,
-            "order": order,
-            "list_id": list_id,
-            "count": count,
-            "offset": offset,
-            "fields": fields,
-        }
-        response = await self.session.get(url=url, params=params)
+        params = request.dict(
+            exclude_none=True
+        )
+        response = self.session.get(url=url, params=params, headers=self.headers)
+        data = response.json()
+        return FriendsGetResponse.parse_obj(data)

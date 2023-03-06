@@ -1,22 +1,18 @@
 from pydantic import BaseModel
 
-class UserResponseModel(BaseModel):
+class Item(BaseModel):
+    id: int
+    title: str
+
+class User(BaseModel):
     id: int
     first_name: str
     last_name: str
-    deactivated: str
-    is_closed: bool
-    can_access_closed: bool
 
-    country: str | None
-    city: str | None
+    country: Item | None
+    city: Item | None
     bdate: str | None
-    sex: int | None
-
-class User(BaseModel):
-    first_name: str
-    last_name: str
-    country: str
-    city: str
-    bdate: str
-    gender: str
+    sex: str | None
+    track_code: str
+    can_access_closed: bool
+    is_closed: bool
