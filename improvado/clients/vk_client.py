@@ -8,7 +8,6 @@ from improvado.exceptions import BadID, PrivateProfile, BadParameter
 
 class VkClient(Client):
     API_URL: str = "https://api.vk.com/method"
-    CHUNK_STEP = 5000
 
     def __init__(self, token: str):
         super().__init__()
@@ -30,7 +29,11 @@ class VkClient(Client):
 
         if data["response"]["count"] == 0:
             raise BadID(request.user_id)
-
+    # Здесь создается генератор с целью экономии оперативной памяти,
+    # а также для пагинации, поскольку VK API возвращает максимум
+    # 5000 записей
+    # Генератор нужен для "ленивой" итерации без хранения всего массива объектов
+    # в оперативной памяти
     def chunks(self, request, url):
         response = self.session.get(url=url, params=request.dict(exclude_none=True), headers=self.headers)
         data = response.json()
