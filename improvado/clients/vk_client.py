@@ -1,6 +1,5 @@
 from improvado.clients.base import Client
 from improvado.dataschemas.request import FriendsGetRequest
-from improvado.dataschemas.response import FriendsGetResponse
 from improvado.dataschemas.user import Users
 from improvado.exceptions import BadID, PrivateProfile, BadParameter
 
