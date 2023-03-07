@@ -43,3 +43,6 @@ Dataschema:
    "bdate": "%d-%m-%Y",
    "sex": "male"
 }]
+```
+## Endpoint used
+[GET] [https://api.vk.com/method/friends.get](https://dev.vk.com/method/friends.get)
