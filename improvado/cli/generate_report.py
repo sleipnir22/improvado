@@ -2,6 +2,7 @@ import click
 
 from improvado.clients.vk_client import VkClient
 from improvado.config import settings
+from improvado.exceptions import BadIDType
 from improvado.logger import logger
 from improvado.services.base import ReportType
 from improvado.services.get_report_generator import get_report_generator
@@ -25,6 +26,9 @@ def cli_command(user_id, report_type, output_file, quiet):
         logger.level("INFO")
     else:
         logger.level("DEBUG")
+
+    if not user_id.isdigit():
+        raise BadIDType(int, user_id)
 
     with VkClient(
         token=settings.TOKEN
