@@ -10,7 +10,7 @@ class FriendsGetRequest(BaseRequest):
     order: str = "name"
     list_id: int | None
     count: int | None
-    offset: int | None
+    offset: int | None = 0
     fields: str = "bdate," \
                   "city," \
                   "country," \

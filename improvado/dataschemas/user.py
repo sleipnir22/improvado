@@ -19,3 +19,6 @@ class User(BaseModel):
     track_code: str
     can_access_closed: bool
     is_closed: bool
+
+class Users(BaseModel):
+    __root__: list[User]

@@ -9,7 +9,7 @@ class CsvReportGenerator(ReportGenerator):
     REPORT_TYPE = ReportType.tsv
     def generate_report(self, user_id: int) -> Report:
         request = FriendsGetRequest(user_id=user_id)
-        users = self.client.get_user_friends(request)
-        df = users_to_df(users)
+        users_chunks = self.client.get_user_friends(request)
+        df = users_to_df(users_chunks)
         file_stream = io.StringIO(df.to_csv(index=False, sep = "\t"))
         return file_stream
