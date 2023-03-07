@@ -30,7 +30,7 @@ Available report types:
 |-------------|------------------|
 | csv         | <file_name>.csv  |                                                 |
 | tsv         | <file_name>.tsv  |
-| json        | <file_name>.tsv  |
+| json        | <file_name>.json |
 
 Dataschema:
 ```yaml
