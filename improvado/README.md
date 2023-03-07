@@ -19,10 +19,10 @@ poetry run improvado -id <user_id> -t <report_type> -o <file_name_without_extens
 4) Example
 
 ```
-poetry run improvado -id 139802373 -t csv -o denis_friends
+poetry run improvado -id 263626498 -t csv -o some_user_friends
 ```
 
-output: denis_friends.csv
+output: some_user_friends.csv
 
 Available report types:
 
