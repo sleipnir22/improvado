@@ -1,7 +1,4 @@
 import io
-from datetime import datetime
-
-import dateutil.parser
 import pandas as pd
 
 from improvado.dataschemas.request import FriendsGetRequest
