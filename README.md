@@ -5,7 +5,7 @@ This repository contains CLI application that extracts user information from VK 
 ## Usage
 1) Install poetry:
 ```
-    pip install poetry
+pip install poetry
 ```
 2) Install all the dependencies
 ```
