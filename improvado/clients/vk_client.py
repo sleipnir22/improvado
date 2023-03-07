@@ -47,7 +47,7 @@ class VkClient(Client):
             yield Users.parse_obj(data["response"]["items"])
 
 
-    def get_user_friends(self, request: FriendsGetRequest) -> t.Generator[Users]:
+    def get_user_friends(self, request: FriendsGetRequest):
         url = f"{self.API_URL}/friends.get"
         data_chunks = self.chunks(request, url)
 
