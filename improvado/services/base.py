@@ -21,3 +21,4 @@ class ReportGenerator(ABC):
         ...
 
 T_ReportGenerator = t.TypeVar("T_ReportGenerator", bound=ReportGenerator)
+
