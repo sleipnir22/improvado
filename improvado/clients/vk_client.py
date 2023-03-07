@@ -1,3 +1,5 @@
+import typing as t
+
 from improvado.clients.base import Client
 from improvado.dataschemas.request import FriendsGetRequest
 from improvado.dataschemas.user import Users
@@ -29,7 +31,7 @@ class VkClient(Client):
         if data["response"]["count"] == 0:
             raise BadID(request.user_id)
 
-    def chunks(self, request, url) -> Users:
+    def chunks(self, request, url) -> t.Generator[Users]:
         response = self.session.get(url=url, params=request.dict(exclude_none=True), headers=self.headers)
         data = response.json()
         self.handle_exceptions(data, request)
@@ -45,7 +47,7 @@ class VkClient(Client):
             yield Users.parse_obj(data["response"]["items"])
 
 
-    def get_user_friends(self, request: FriendsGetRequest):
+    def get_user_friends(self, request: FriendsGetRequest) -> t.Generator[Users]:
         url = f"{self.API_URL}/friends.get"
         data_chunks = self.chunks(request, url)
 
