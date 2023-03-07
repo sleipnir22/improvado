@@ -6,7 +6,7 @@ from improvado.exceptions import BadID, PrivateProfile, BadParameter
 
 class VkClient(Client):
     API_URL: str = "https://api.vk.com/method"
-
+    MAX_USERS: int = 5000
     def __init__(self, token: str):
         super().__init__()
         self.token = token
@@ -38,8 +38,8 @@ class VkClient(Client):
         self.handle_exceptions(data, request)
         yield Users.parse_obj(data["response"]["items"])
 
-        while data["response"]["count"] >= 5000:
-            request.offset += 5000
+        while data["response"]["count"] == self.MAX_USERS:
+            request.offset += self.MAX_USERS
             request.order = ""
             response = self.session.get(url=url, params=request.dict(exclude_none=True), headers=self.headers)
             data = response.json()
