@@ -1,5 +1,3 @@
-import typing as t
-
 from improvado.clients.base import Client
 from improvado.dataschemas.request import FriendsGetRequest
 from improvado.dataschemas.user import Users
