@@ -28,7 +28,7 @@ def cli_command(user_id, report_type, output_file, quiet):
         logger.level("DEBUG")
 
     if not user_id.isdigit():
-        raise BadIDType(int, user_id)
+        raise BadIDType(type(user_id), user_id)
 
     with VkClient(
         token=settings.TOKEN
