@@ -31,7 +31,7 @@ class VkClient(Client):
         if data["response"]["count"] == 0:
             raise BadID(request.user_id)
 
-    def chunks(self, request, url) -> t.Generator[Users]:
+    def chunks(self, request, url):
         response = self.session.get(url=url, params=request.dict(exclude_none=True), headers=self.headers)
         data = response.json()
         self.handle_exceptions(data, request)

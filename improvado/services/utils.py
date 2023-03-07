@@ -5,7 +5,7 @@ from improvado.dataschemas.user import Users
 from improvado.logger import logger
 
 
-def users_to_df(user_chunks: t.Generator[Users]):
+def users_to_df(user_chunks):
     df = pd.DataFrame()
 
     for user_chunk in user_chunks:
