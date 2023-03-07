@@ -1,6 +1,7 @@
 import pandas as pd
 
 from improvado.dataschemas.response import FriendsGetResponse
+from improvado.logger import logger
 
 
 def users_to_df(users: FriendsGetResponse):
@@ -20,4 +21,5 @@ def users_to_df(users: FriendsGetResponse):
             ).to_frame().T],
             ignore_index=True,
         )
+    logger.debug(f"dataframe :{df}")
     return df

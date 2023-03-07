@@ -2,6 +2,7 @@ from improvado.clients.base import Client
 from improvado.dataschemas.request import FriendsGetRequest
 from improvado.dataschemas.response import FriendsGetResponse
 from improvado.exceptions import BadID, PrivateProfile, BadParameter
+from improvado.logger import logger
 
 
 class VkClient(Client):
@@ -19,8 +20,12 @@ class VkClient(Client):
         params = request.dict(
             exclude_none=True
         )
+        logger.debug(f"query params: {params}")
         response = self.session.get(url=url, params=params, headers=self.headers)
         data = response.json()
+
+        logger.debug(f"VK API response: {data}")
+
         if "error" in data:
             error_code = data["error"]["error_code"]
             if error_code == 113:
@@ -30,5 +35,7 @@ class VkClient(Client):
             if error_code == 100:
                 raise BadParameter
 
+        if data["response"]["count"] == 0:
+            raise BadID(request.user_id)
 
         return FriendsGetResponse.parse_obj(data)

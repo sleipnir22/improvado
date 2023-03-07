@@ -2,6 +2,7 @@ import click
 
 from improvado.clients.vk_client import VkClient
 from improvado.config import settings
+from improvado.logger import logger
 from improvado.services.base import ReportType
 from improvado.services.get_report_generator import get_report_generator
 
@@ -18,10 +19,19 @@ from improvado.services.get_report_generator import get_report_generator
 )
 @click.option("-id", "--user_id", "user_id", required=True)
 @click.option("-o", "--output", 'output_file', required=True)
-def cli_command(user_id, report_type, output_file):
+@click.option('--quiet', default=True, is_flag=True)
+def cli_command(user_id, report_type, output_file, quiet):
+    if quiet:
+        logger.level("INFO")
+    else:
+        logger.level("DEBUG")
+
     with VkClient(
         token=settings.TOKEN
     ) as client:
+        logger.info(f"user_id: {user_id}")
+        logger.info(f"report type: {report_type.name}")
+
         report_generator_class = get_report_generator(report_type)
         report_generator = report_generator_class(client=client)
         report = report_generator.generate_report(user_id)

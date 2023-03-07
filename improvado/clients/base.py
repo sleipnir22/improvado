@@ -3,7 +3,6 @@ import typing as t
 
 import requests
 
-
 class Client(ABC):
     API_URL: str = ""
 
